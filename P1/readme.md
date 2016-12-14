@@ -8,7 +8,7 @@ You have volunteered to be the Coordinator for your town’s youth soccer league
 * Create logic that can iterate through all 18 players and assign them to teams such that each team has the same number of players. The number of experienced players on each team should also be the same.
 
 * Finally, the program should output a text file named -- teams.txt -- that contains the league roster listing the team name, and each player on the team including the player's information: name, whether they've played soccer before and their guardians' names.
-* 
+
 ## Extra Credit 
 * Create 18 text files ("welcome" letters to the players' guardians). You'll create 1 text file for each player. Use the player’s name as the name of the file, in lowercase and with underscores and ending in .txt. For example, kenneth_love.txt.
 
