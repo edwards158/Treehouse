@@ -3,4 +3,4 @@
 This repository contains project work associated with [Treehouse's Python Web Developer Techdegree.] (https://teamtreehouse.com/techdegree/python-web-development)
 
 Projects:
-* P1: Build a Soccer League - Build a tool to help a scooer coach divide 18 players into a well-balanced team
+* P1: Build a Soccer League - Build a tool to help a soccer coach divide 18 players into a well-balanced team
