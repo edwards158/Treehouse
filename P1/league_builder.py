@@ -1,4 +1,5 @@
 import csv
+import os
 
 # declare constants
 NUMBER_OF_TEAMS = 3
@@ -9,7 +10,7 @@ DATES = [
     ]
 LETTER_TEXT = (
             "Dear {}, \nYour ward {} is in team {}. The date of first"
-            " practice is {} \nRegards \nThe Football Coach"
+            " practice is {} \nRegards \nThe Soccer Coach"
         )
 
 
@@ -54,7 +55,7 @@ def write_to_guardians(teams):
     for team_name in teams:
         for key in teams[team_name]:
             name = (key['Name'].lower()).split()
-            file_name = s.join(name) + '.txt'
+            file_name = data_path + '/' + s.join(name) + '.txt'
             f = open(file_name, 'w+')
             f.write(LETTER_TEXT.format(key['Guardian Name(s)'], key['Name'],
                     team_name, DATES[count1]))
@@ -65,7 +66,7 @@ def write_to_guardians(teams):
 def write_teams(teams):
     ''' Write the team information using specified format
     '''
-    with open('teams.txt', 'w') as f:
+    with open(data_path + '/' + 'teams.txt', 'w+') as f:
         for team_name in teams:
             f.write(team_name + '\n')
             for k in teams[team_name]:
@@ -77,6 +78,12 @@ def write_teams(teams):
 
 if __name__ == "__main__":
 
+    # create a folder to hold all the files
+    data_path = os.getcwd()+'/data'
+    
+    if not os.path.isdir(data_path):
+        os.makedirs(data_path)
+    
     teams = process_players()
     write_teams(teams)
     write_to_guardians(teams)
