@@ -1,5 +1,9 @@
 
 ## Project 1
+
+## How  to use
+To use run **python league_builder.py**.  This creates a **data** folder containing **teams.txt** and 18 letters to the guardians of the players in the correct format.
+
 ## Build a Soccer League
 You have volunteered to be the Coordinator for your town’s youth soccer league. As part of your job you need to divide the 18 children who have signed up for the league into three even teams - Dragons, Sharks and Raptors. In years past, the teams have been unevenly matched, so this year you are doing your best to fix that. For each child, you will have the following information: Name, height (in inches), whether or not they have played soccer before, and their guardians’ names. You'll take a list of these children, divide them into teams and output a text file listing the three teams and the players on them. There are three main tasks you'll need to complete to get this done:
 
