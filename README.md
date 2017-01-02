@@ -4,3 +4,4 @@ This repository contains project work associated with [Treehouse's Python Web De
 
 Projects:
 * P1: Build a Soccer League - Build a tool to help a soccer coach divide 18 players into a well-balanced team
+* P2: Battleship game
