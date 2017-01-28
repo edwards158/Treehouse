@@ -9,7 +9,7 @@ class Entry(object):
     self.task_name = ""
     self.task_time = 30
     self.task_notes = ""
-    self.task_date = "22/12/1971"
+    self.task_date = ""
     self.get_task_name()
     self.get_task_time()
     self.get_task_date()
