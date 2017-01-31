@@ -16,7 +16,7 @@ class Entry(object):
     self.get_task_notes()
     
   def get_task_name(self):
-    '''Get name of task from user'''
+    """Get name of task from user"""
     task_name   = input("Enter the task name: ")
     if len(task_name) == '':
       input("Task Name should be at least one character long. Press enter to continue.")
@@ -25,7 +25,7 @@ class Entry(object):
       self.task_name = task_name
       
   def get_task_time(self):
-    '''Get task time from user'''
+    """Get task time from user"""
     time = input("Enter task time in minutes: ")
     try:
       int(time)
@@ -36,7 +36,7 @@ class Entry(object):
       self.time = time
 
   def get_task_date(self):
-    '''The time is now'''
+    """The time is now"""
     now = dt.datetime.now()
     self.task_date = now.strftime('%d/%m/%Y')
   
@@ -52,7 +52,7 @@ class Entry(object):
       self.date = date
 
   def get_task_notes(self):
-    '''Get the task notes from user'''
+    """Get the task notes from user"""
     self.task_notes = input("Enter notes (hit enter to leave empty):")
     
 
