@@ -112,6 +112,8 @@ class Worklog(object):
   def search_by_range_date(self):
     """Search file by range of dates. Input start date
     and end date from user """
+    
+    print("Enter start then end date below:")
     start = self.search_date_input()
     end = self.search_date_input()
 
