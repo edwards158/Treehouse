@@ -31,12 +31,10 @@ def check_values(message_string,function_name):
       entry = True
   return data_text
 
-
 def validate_menu_choice(menu_string):
 		
 	if menu_string.lower() not in ['y','n']:
 		raise ValueError('enter y or n')
-
 
 def validate_row_exists(menu_choice,num_rows):
 		

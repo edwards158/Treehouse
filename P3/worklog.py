@@ -3,10 +3,11 @@ from csv import DictReader, DictWriter
 import datetime as dt
 from  os import system, path
 import re
-from entry import Entry
-import validator as validator
-import misc as misc
 from sys import exit
+
+from entry import Entry
+import misc as misc
+import validator as validator
 
 filename = "worklog.csv"
 
@@ -17,16 +18,16 @@ def clr_screen():
 class Worklog(object):
 
   def open_file(self, filename):
-    '''Takes file name as argument and returns a 
+    """Takes file name as argument and returns a 
     list of dictionary of the entries
-    '''
+    """
     with open(filename, newline="") as csvfile:
       entries = list(DictReader(csvfile, delimiter=","))
     return entries
 
 
   def write_entry_to_log(self, entry):
-    ''' write the worklog data to file'''
+    """write the worklog data to file"""
     file_exists = path.isfile(filename)
 
     with open (filename, 'a') as csvfile:
@@ -45,7 +46,7 @@ class Worklog(object):
 
   def list_dates(self,entries):
     """Lists date results and user chooses which entries to view"""
-    print("Search yielded the following results: \n")
+    print("Search gives following results: \n")
     counter = 1
     for entry in entries:
       print("[{}] - {}".format(counter, entry["Date"]))
@@ -122,7 +123,6 @@ class Worklog(object):
           end, "%d/%m/%Y")
 
     entries = self.open_file(filename)
-    #entries = open_file("work_log.csv")
     search_result = []
 
     for entry in entries:
@@ -139,25 +139,21 @@ class Worklog(object):
           start, end))
     
     input("Press enter to continue to Search Menu.")
-    clr_screen()
-    search_menu()
-
 
   def display_entry(self,entry):
-    '''Print the entry before writing to database'''
+    """Print the entry before writing to database"""
     print("Task Name: {}".format(entry.task_name))
     print("Time Spent (Mins): {}".format(entry.task_time))
     print("Notes: {}".format(entry.task_notes))
     print("Date: {}\n".format(entry.task_date))
     
   def add_entry(self,entry):
-    ''' Process the entry requirement 
-    '''
+    """Process the entry requirement"""
     self.display_entry(entry)
     print (misc.ADD_MENU)
 
     for key in sorted(misc.edit_choice_menu):
-      print (key, misc.edit_choice_menu[key])
+      print (misc.edit_choice_menu[key])
 
     choice = input("Please select:")
 
@@ -181,8 +177,8 @@ class Worklog(object):
       self.add_entry(entry) 
 
   def write_del_entry_to_log(self, entry):
-    ''' write the worklog data to file
-    '''
+    """ write the worklog data to file
+    """
     file_exists = path.isfile(filename)
 
     with open (filename, 'w') as csvfile:
@@ -222,9 +218,9 @@ class Worklog(object):
     menu = [p,n,m]
 
     if index == 0:
-      del menu[0]
+      menu.remove(p)
     if index == len(entries) - 1:
-      del menu[1]
+      menu.remove(n)
     for menu in menu:
       print(menu)
 
@@ -269,52 +265,69 @@ class Worklog(object):
 
 
   def find_by_pattern(self):
-    ''' search the database by pattern'''
+    """search the database by pattern"""
     choice = input("Enter pattern to search for:")
     reader = self.open_file(filename)
     pattern = re.compile(".*({}).*".format(choice))
     records = []
 
-    for row in reader:
-      title_words = row['Name']
-      notes_words = row['Notes']
-      if (pattern.search(title_words) or pattern.search(notes_words) ):
-          records.append(row)
+    for entry in reader:
+      if (re.search(r'{}'.format(choice), entry["Name"]) or
+        re.search(r'{}'.format(choice), entry["Notes"])):
+        records.append(entry)
 
-    self.display_entries(records)
+    if records:
+      self.display_entries(records)
+      input("Press enter to continue.")
+    else:
+      print("No reult found for {} in time spent.".format(choice))
+
+    input("Press enter to continue.")
 
       
   def find_by_time(self):
-    '''get the date from user and search'''
-    choice = input("Enter time to search for:")
+    """get the time from user and search"""
+    choice = input("Enter time spent to search for:")
     reader = self.open_file(filename)
     records = []
 
-    for row in reader:
-      if row['Time'] == choice:
-        records.append(row)
-        
-    self.display_entries(records)
+    regex = re.compile(r"\schoice\s") # \s is whitespace
+
+
+    for entry in reader:
+      if re.search(r'{}'.format(choice), entry["Time"]):
+        records.append(entry)
+    
+    if records:
+      self.display_entries(records)
+      input("Press enter to continue.")
+    else:
+      print("No reult found for {} in time spent.".format(choice))
+
+    input("Press enter to continue.")
 
   def find_by_string(self):
-    '''get the exact input string from user and search'''
+    """get the exact input string from user and search"""
     choice = input("Enter exact string to search for:")
+ 
     reader = self.open_file(filename)
-    input_words = choice.split() 
+    
     records = []
-
-    for row in reader:
-      title_words = row['Name'].split()
-      notes_words = row['Notes'].split()
-      for word in input_words:
-        if word in title_words or word in notes_words:
-          records.append(row)
+    for entry in reader:
+      if (re.search(r'{}'.format(choice), entry["Name"]) or
+        re.search(r'{}'.format(choice), entry["Notes"])):
+        records.append(entry)
         
-    self.display_entries(records)
+    if records:
+      self.display_entries(records)
+      input("Press enter to continue.")
+    else:
+      print("No reult found for {} in time spent.".format(choice))
+
+    input("Press enter to continue.")
 
   def search_menu(self):
-    ''' Give the user a menu to select what type of search is required
-    '''
+    """Give the user a menu to select what type of search is required"""
     clr_screen() 
     
     print (misc.SEARCH_MENU)
@@ -325,7 +338,7 @@ class Worklog(object):
     print('\n')
     choice = input("Please select:")
 
-    if choice =='1':
+    if choice == '1':
       self.search_by_range_date()
       self.main_menu()
     elif choice == '2': 
@@ -345,8 +358,7 @@ class Worklog(object):
       self.main_menu()
 
   def main_menu(self):
-    ''' Give the user a menu to select from
-    '''
+    """ Give the user a menu to select from"""
     clr_screen()
     print (misc.TITLE_MENU)
 
@@ -355,7 +367,8 @@ class Worklog(object):
 
     choice = input("Please select from options:")
 
-    if choice =='1':
+    if choice == '1':
+      print(choice)
       clr_screen() 
       entry = Entry()
       self.add_entry(entry)
@@ -369,7 +382,7 @@ class Worklog(object):
     else: 
       misc.option_error()
       self.main_menu()
-
+    
 
   def __init__(self):
     self.main_menu()
