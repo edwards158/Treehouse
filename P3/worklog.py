@@ -113,8 +113,6 @@ class Worklog(object):
     """Search file by range of dates. Input start date
     and end date from user """
     start = self.search_date_input()
-    #print (type(start_date))
-    #clr_screen()
     end = self.search_date_input()
 
     start_date = dt.datetime.strptime(
@@ -189,7 +187,6 @@ class Worklog(object):
       writer.writeheader()  # file doesn't exist yet, write a header
 
       for n in entry:
-        #print (n['Title'])
         writer.writerow({
           misc.HEADERS[0]: n['Name'],
           misc.HEADERS[1]: n['Time'],
@@ -290,9 +287,6 @@ class Worklog(object):
     choice = input("Enter time spent to search for:")
     reader = self.open_file(filename)
     records = []
-
-    regex = re.compile(r"\schoice\s") # \s is whitespace
-
 
     for entry in reader:
       if re.search(r'{}'.format(choice), entry["Time"]):

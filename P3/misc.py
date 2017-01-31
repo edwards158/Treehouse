@@ -1,5 +1,3 @@
-
-
 menu = {}
 menu['1']="[1] Add Entry." 
 menu['2']="[2] Search Entries."
