@@ -11,7 +11,6 @@ import validator as validator
 
 filename = "worklog.csv"
 
-
 def clr_screen():
   system('clear')
 
@@ -75,7 +74,7 @@ class Worklog(object):
       else:
         input("Invalid entry. See menu for valid options. "
           "Press enter to continue.")
-        clr_screen
+        clr_screen()
         self.date_display(entries)
 
 
@@ -96,16 +95,14 @@ class Worklog(object):
     else:
       input("Input is not in the search result list. "
         "Try again.")
-      clr_screen
+      clr_screen()
       self.date_lookup(entries)
 
 
   def search_date_input(self):
     """Validates date entry if in correct format"""
-
     date_text = validator.check_values(misc.DATE_STRING,
                        validator.validate_date)
-
     return date_text
 
 
@@ -146,7 +143,52 @@ class Worklog(object):
     print("Time Spent (Mins): {}".format(entry.task_time))
     print("Notes: {}".format(entry.task_notes))
     print("Date: {}\n".format(entry.task_date))
-    
+  
+
+  def edit_entry(self,entry):
+    """Menu to edit the any of the fields in the entry re: 
+    name, time, notes and date"""
+    self.display_entry(entry)
+    print("""
+
+  Which field would you like to edit:
+  [A] - Task Name
+  [T] - Time Spent
+  [N] - Notes
+  [D] - Date
+
+  """)
+
+    option = input("Please select option from menu: "
+          ).lower().strip()
+
+    if option == "a":
+      entry.get_task_name()
+      input("entry Name edited. Press enter to continue.")
+      clr_screen()
+      self.add_entry(entry)
+    elif option == "t":
+      entry.get_task_time()
+      input("Time Spent edited. Press enter to continue.")
+      clr_screen()
+      self.add_entry(entry)
+    elif option == "n":
+      entry.get_task_notes()
+      input("Notes edited. Press enter to continue.")
+      clr_screen()
+      self.add_entry(entry)
+    elif option == "d":
+      clr_screen()
+      entry.get_task_date()
+      input("Date edited. Press enter to continue.")
+      clr_screen()
+      self.add_new_task(entry)
+    else:
+      input("Invalid entry. See menu for valid options. "
+        "Press enter to continue.")
+      clr_screen()
+      self.edit_entry()
+
   def add_entry(self,entry):
     """Process the entry requirement"""
     self.display_entry(entry)
@@ -158,7 +200,7 @@ class Worklog(object):
     choice = input("Please select:")
 
     if choice == '1':
-      self.edit_menu(entry)
+      self.edit_entry(entry)
       input("Entry edited. Press enter to go back to main menu.")
       clr_screen()
       self.main_menu()
