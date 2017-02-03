@@ -2,7 +2,7 @@
 ## Project 3
 
 ## How  to use
-To use run **python worklog.csv** and follow the menu options.  Data entries is stored in **worklog.csv**
+To use run **python worklog.csv** and follow the menu options.  Data entries are stored in **worklog.csv**
 
 ## Work Log
 In order to prepare better timesheets for your company, you've been asked to develop a terminal application for logging what work someone did on a certain day. The script should ask for a task name, how much time was spent on the task, and any general notes about the task. Record each of these items into a row of a CSV file along with a date.
