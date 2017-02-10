@@ -47,7 +47,7 @@ class Entry(object):
       dt.datetime.strptime(date, "%d/%m/%Y")
     except ValueError:
       input("Please enter date in this format: DD/MM/YYYY. Press enter to cotinue.")
-      self.get_edit_date()
+      self.get_task_edit_date()
     else:
       self.date = date
 
